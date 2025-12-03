@@ -2,6 +2,12 @@
 set -e
 # DOCKER_MIRROR_REP=<yourrep>/<namespace>/<imagename>
 
+
+if [ -z "$DOCKER_MIRROR_REP" ]; then
+echo DOCKER_MIRROR_REP can not be null
+exit 1
+fi
+
 IFS='/' read -r -a array <<< "$1"
 LEN=${#array[@]}
 if [[ LEN -eq 1 ]]; then
