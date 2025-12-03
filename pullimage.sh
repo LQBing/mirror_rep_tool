@@ -45,12 +45,9 @@ echo pull $DOCKER_MIRROR_REP:${NAMESPACE}_${IMAGENAME}_${TAG}
 docker pull $DOCKER_MIRROR_REP:${NAMESPACE}_${IMAGENAME}_${TAG}
 } ||
 {
-if [ -z "${DOCKER_TRANSPORT_SERVER_HOST}" ]; then
-    ssh -o StrictHostKeyChecking=no pushimage $1
+if [ -n "${DOCKER_TRANSPORT_SERVER_HOST}" ]; then
+    ssh -o StrictHostKeyChecking=no ${DOCKER_TRANSPORT_SERVER_HOST} pushimage $1
     docker pull $DOCKER_MIRROR_REP:${NAMESPACE}_${IMAGENAME}_${TAG}
-else 
-    echo "$1 not exist"
-    exit 1
 fi
 }
 echo tag $DOCKER_MIRROR_REP:${NAMESPACE}_${IMAGENAME}_${TAG} $1
